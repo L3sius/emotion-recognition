@@ -58,6 +58,7 @@ video.addEventListener("play", () => {
         document.getElementById("recordingStatus").innerHTML =
           "Recording is currently off.";
         document.getElementById("recordingStatus").style.color = "red";
+        document.getElementById("startRecordingbtn").disabled = false;
         console.log(expressions);
         createTable();
       }
@@ -79,6 +80,7 @@ function startRecording() {
   document.getElementById("recordingStatus").innerHTML =
     "Recording is currently on.";
   document.getElementById("recordingStatus").style.color = "green";
+  document.getElementById("startRecordingbtn").disabled = true;
 }
 
 function createTable() {
