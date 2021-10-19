@@ -1,0 +1,15 @@
+#canvas {
+  position: absolute;
+}
+
+#container {
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+}
