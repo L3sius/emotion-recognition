@@ -12,25 +12,43 @@
   </head>
 
   <body>
-    <h1>Smart Emotion Recognition, by Justas Leščinskas</h1>
-    <div id="container">
+    <p id="title">
+      Smart Emotion Recognition<br />
+      <span id="smaller">by Justas Leščinskas</span>
+    </p>
+    <div id="main">
       <video id="video" width="720" height="560" autoplay muted></video>
       <canvas id="canvas" width="720" height="560"></canvas>
       <br />
-      <button id="startRecordingbtn" onclick="startRecording()">
-        Start recording
-      </button>
-      <p style="color: red" id="recordingStatus">Recording is currently off.</p>
-      <p>How do you feel?</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Emotion</th>
-            <th>Value (Percentage)</th>
-          </tr>
-        </thead>
-        <tbody id="tableData"></tbody>
-      </table>
+
+      <div class="container">
+        <div class="functions">
+          <button id="startRecordingbtn" onclick="startRecording()">
+            Start recording
+          </button>
+        </div>
+        <div class="status">
+          <p id="recordingStatus">Recording is currently off.</p>
+        </div>
+        <div class="tableContent">
+          <table id="emotionTable">
+            <thead>
+              <tr>
+                <th>EMOTION</th>
+                <th>VALUE</th>
+              </tr>
+            </thead>
+            <tbody id="tableData"></tbody>
+          </table>
+        </div>
+        <div class="infoContent">
+          <p>
+            To start recording emotions, click on "start recording". The
+            application will then record your emotions for 10 seconds and update
+            the table on the right based on your expressions.
+          </p>
+        </div>
+      </div>
     </div>
   </body>
 </html>

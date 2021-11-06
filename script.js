@@ -22,6 +22,8 @@ function startVideo() {
     (stream) => (video.srcObject = stream),
     (err) => console.error(err)
   );
+
+  emptyTable();
 }
 
 video.addEventListener("play", () => {
@@ -46,9 +48,15 @@ video.addEventListener("play", () => {
           expressions[expression] += detections[0].expressions[expression];
         }
       });
+      console.log("current expression value");
       console.log(expressions);
       iterationCount++;
       console.log(iterationCount);
+      // Update table after 2 seconds
+      if (iterationCount % 20 == 0) {
+        createTable();
+        for (var member in expressions) delete expressions[member];
+      }
 
       // End recording after 10 seconds
       if (iterationCount == 100) {
@@ -59,8 +67,10 @@ video.addEventListener("play", () => {
           "Recording is currently off.";
         document.getElementById("recordingStatus").style.color = "red";
         document.getElementById("startRecordingbtn").disabled = false;
-        console.log(expressions);
-        createTable();
+        document.getElementById("startRecordingbtn").style.opacity = 1;
+        document.getElementById("startRecordingbtn").style.cursor = "pointer";
+        // Create table after full recording
+        // createTable();
       }
     }
 
@@ -75,17 +85,21 @@ video.addEventListener("play", () => {
 function startRecording() {
   console.log("started");
   isRecording = true;
-  $("#tableData tr").remove();
+  // Clear out table
+  // $("#tableData tr").remove();
   for (var member in expressions) delete expressions[member];
+  emptyTable();
+
   document.getElementById("recordingStatus").innerHTML =
     "Recording is currently on.";
   document.getElementById("recordingStatus").style.color = "green";
   document.getElementById("startRecordingbtn").disabled = true;
+  document.getElementById("startRecordingbtn").style.opacity = 0.3;
+  document.getElementById("startRecordingbtn").style.cursor = "not-allowed";
 }
 
 function createTable() {
-  var k = "<tbody>";
-
+  let k = "<tbody>";
   console.log("this is the final expressions object");
   console.log(expressions);
   let totalExpressionsValue = findTotalValue();
@@ -94,13 +108,13 @@ function createTable() {
   console.log("This is the percentages");
   console.log(expressions);
   k += "<tr>";
-  k += insertRows("angry");
-  k += insertRows("disgusted");
-  k += insertRows("fearful");
-  k += insertRows("happy");
-  k += insertRows("neutral");
-  k += insertRows("sad");
-  k += insertRows("surprised");
+  k += insertRows("Angry");
+  k += insertRows("Disgusted");
+  k += insertRows("Fearful");
+  k += insertRows("Happy");
+  k += insertRows("Neutral");
+  k += insertRows("Sad");
+  k += insertRows("Surprised");
 
   k += "</tbody>";
   document.getElementById("tableData").innerHTML = k;
@@ -112,7 +126,7 @@ function insertRows(expression) {
     expression +
     "</td>" +
     "<td>" +
-    expressions[expression] +
+    expressions[expression.toLowerCase()] +
     "%" +
     "</td>" +
     "</tr>"
@@ -135,4 +149,18 @@ function calculatePercentage(totalExpressionsValue) {
       (parseInt(expressions[i]) / totalExpressionsValue) * 100
     );
   }
+}
+
+function emptyTable() {
+  let k = "<tbody>";
+  k += "<tr>";
+  k += "<td>" + "Angry" + "</td>" + "<td>" + 0 + "%" + "</td>" + "</tr>";
+  k += "<td>" + "Disgusted" + "</td>" + "<td>" + 0 + "%" + "</td>" + "</tr>";
+  k += "<td>" + "Fearful" + "</td>" + "<td>" + 0 + "%" + "</td>" + "</tr>";
+  k += "<td>" + "Happy" + "</td>" + "<td>" + 0 + "%" + "</td>" + "</tr>";
+  k += "<td>" + "Neutral" + "</td>" + "<td>" + 0 + "%" + "</td>" + "</tr>";
+  k += "<td>" + "Sad" + "</td>" + "<td>" + 0 + "%" + "</td>" + "</tr>";
+  k += "<td>" + "Surprised" + "</td>" + "<td>" + 0 + "%" + "</td>" + "</tr>";
+  k += "</tbody>";
+  document.getElementById("tableData").innerHTML = k;
 }

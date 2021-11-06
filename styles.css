@@ -1,15 +1,117 @@
 #canvas {
   position: absolute;
+  padding-left: 60px;
 }
 
-#container {
+#main {
   justify-content: center;
   align-items: center;
   position: absolute;
+  padding-left: 60px;
 }
 
-table,
 th,
 td {
-  border: 1px solid black;
+  outline: rgb(66, 48, 32) 2px solid;
+  font-family: "Century Gothic";
+  text-align: center;
+  font-size: 20px;
+  width: 100px;
+  padding: 2px 10px 2px 10px;
+}
+
+th {
+  background-color: rgb(163, 86, 10);
+  color: rgb(255, 249, 221);
+  text-align: center;
+}
+
+td:nth-child(1) {
+  background-color: rgb(217, 121, 4);
+  color: rgb(255, 249, 221);
+}
+
+html,
+body {
+  height: 100%;
+  width: 840px;
+}
+
+html {
+  display: table;
+  margin: auto;
+  background-color: rgb(217, 121, 4);
+}
+
+body {
+  vertical-align: middle;
+  background-color: rgb(255, 249, 221);
+  height: 120%;
+}
+
+#title {
+  font-size: 50px;
+  text-align: center;
+  font-family: "Impact";
+  color: rgb(255, 249, 221);
+  background-color: rgb(217, 121, 4);
+  line-height: 0.7;
+  padding-bottom: 20px;
+}
+#smaller {
+  font-size: 25px;
+}
+
+#startRecordingbtn {
+  font-size: 20px;
+  background-color: rgb(163, 86, 10);
+  color: rgb(255, 249, 221);
+  outline: rgb(66, 48, 32) 2px solid;
+  text-align: center;
+  font-family: "Century Gothic";
+  padding: 7px 15px 7px 15px;
+  border-width: 0;
+  cursor: pointer;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 0.5fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "functions status"
+    "infoContent tableContent";
+  justify-items: center;
+  align-items: center;
+  max-width: 760px;
+}
+
+.functions {
+  grid-area: functions;
+}
+
+.status {
+  grid-area: status;
+}
+
+.tableContent {
+  grid-area: tableContent;
+}
+
+.infoContent {
+  grid-area: infoContent;
+  outline: rgb(66, 48, 32) 2px solid;
+  color: rgb(66, 48, 32);
+  font-family: "Century Gothic";
+  font-size: 20px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+#recordingStatus {
+  color: red;
+  font-family: "Century Gothic";
+  font-size: 20px;
 }
