@@ -16,6 +16,25 @@ Promise.all([
   faceapi.nets.faceExpressionNet.loadFromUri("/models"),
 ]).then(startVideo);
 
+// function getFaceDetectorOptions() {
+//   if (selected_face_detector == "tiny_face_detector") {
+//     return new self.faceapi.TinyFaceDetectorOptions({
+//       inputSize,
+//       scoreThreshold,
+//       drawLines: true,
+//       drawPoints: false,
+//     });
+//   }
+// }
+
+const drawFaceLandmarkOptions = {
+  lineColor: "rgba(255,255,255,1)",
+  pointColor: "rgba(0,0,0,1)",
+  lineWidth: 5,
+};
+
+const useTinyModel = true;
+
 function startVideo() {
   navigator.getUserMedia(
     { video: {} },
@@ -37,6 +56,7 @@ video.addEventListener("play", () => {
       .detectAllFaces(video, new faceapi.TinyFaceDetectorOptions())
       .withFaceLandmarks()
       .withFaceExpressions();
+
     // Start recording only if its called
     if (isRecording) {
       console.log(detections[0].expressions);
@@ -73,12 +93,19 @@ video.addEventListener("play", () => {
         // createTable();
       }
     }
-
-    const resizedDetections = faceapi.resizeResults(detections, displaySize);
-    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
-    faceapi.draw.drawDetections(canvas, resizedDetections);
-    faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
-    faceapi.draw.drawFaceExpressions(canvas, resizedDetections);
+    const landMark = document.getElementById("landMarkCheckBox");
+    if (landMark.checked) {
+      const resizedDetections = faceapi.resizeResults(detections, displaySize);
+      canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+      faceapi.draw.drawDetections(canvas, resizedDetections);
+      faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
+      faceapi.draw.drawFaceExpressions(canvas, resizedDetections);
+    } else {
+      const resizedDetections = faceapi.resizeResults(detections, displaySize);
+      canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+      faceapi.draw.drawDetections(canvas, resizedDetections);
+      faceapi.draw.drawFaceExpressions(canvas, resizedDetections);
+    }
   }, 100);
 });
 

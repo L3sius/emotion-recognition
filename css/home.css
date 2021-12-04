@@ -72,6 +72,7 @@ body {
   padding: 7px 15px 7px 15px;
   border-width: 0;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
 .container {
@@ -114,4 +115,21 @@ body {
   color: red;
   font-family: "Century Gothic";
   font-size: 20px;
+}
+
+/* For checkbox */
+#landMarkCheckBox {
+  height: 15px;
+  width: 15px;
+}
+#checkBoxField {
+  padding: 7px 15px 7px 15px;
+  margin-left: -20px;
+  font-family: "Century Gothic";
+  font-size: 20px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: rgb(163, 86, 10);
+  color: rgb(255, 249, 221);
+  outline: rgb(66, 48, 32) 2px solid;
 }
