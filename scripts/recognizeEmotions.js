@@ -9,23 +9,14 @@ const expressionsPercentage = {};
 let isRecording = false;
 let iterationCount = 0;
 
+emptyTable();
+
 Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
   faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
   faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
   faceapi.nets.faceExpressionNet.loadFromUri("/models"),
 ]).then(startVideo);
-
-// function getFaceDetectorOptions() {
-//   if (selected_face_detector == "tiny_face_detector") {
-//     return new self.faceapi.TinyFaceDetectorOptions({
-//       inputSize,
-//       scoreThreshold,
-//       drawLines: true,
-//       drawPoints: false,
-//     });
-//   }
-// }
 
 const drawFaceLandmarkOptions = {
   lineColor: "rgba(255,255,255,1)",
@@ -41,8 +32,6 @@ function startVideo() {
     (stream) => (video.srcObject = stream),
     (err) => console.error(err)
   );
-
-  emptyTable();
 }
 
 video.addEventListener("play", () => {
@@ -72,8 +61,8 @@ video.addEventListener("play", () => {
       console.log(expressions);
       iterationCount++;
       console.log(iterationCount);
-      // Update table after 2 seconds
-      if (iterationCount % 20 == 0) {
+      // Update table after 1 second
+      if (iterationCount % 10 == 0) {
         createTable();
         for (var member in expressions) delete expressions[member];
       }
@@ -94,18 +83,17 @@ video.addEventListener("play", () => {
       }
     }
     const landMark = document.getElementById("landMarkCheckBox");
+    const detection = document.getElementById("detectionCheckBox");
+    const resizedDetections = faceapi.resizeResults(detections, displaySize);
+
+    canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
     if (landMark.checked) {
-      const resizedDetections = faceapi.resizeResults(detections, displaySize);
-      canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
-      faceapi.draw.drawDetections(canvas, resizedDetections);
       faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
-      faceapi.draw.drawFaceExpressions(canvas, resizedDetections);
-    } else {
-      const resizedDetections = faceapi.resizeResults(detections, displaySize);
-      canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
-      faceapi.draw.drawDetections(canvas, resizedDetections);
-      faceapi.draw.drawFaceExpressions(canvas, resizedDetections);
     }
+    if (detection.checked) {
+      faceapi.draw.drawDetections(canvas, resizedDetections);
+    }
+    faceapi.draw.drawFaceExpressions(canvas, resizedDetections);
   }, 100);
 });
 

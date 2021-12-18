@@ -64,7 +64,7 @@ body {
 
 #startRecordingbtn {
   font-size: 20px;
-  background-color: rgb(163, 86, 10);
+  background-color: rgb(217, 121, 4);
   color: rgb(255, 249, 221);
   outline: rgb(66, 48, 32) 2px solid;
   text-align: center;
@@ -95,6 +95,9 @@ body {
 
 .status {
   grid-area: status;
+  margin-top: 40px;
+  vertical-align: middle;
+  text-align: center;
 }
 
 .tableContent {
@@ -117,14 +120,9 @@ body {
   font-size: 20px;
 }
 
-/* For checkbox */
-#landMarkCheckBox {
-  height: 15px;
-  width: 15px;
-}
 #checkBoxField {
   padding: 7px 15px 7px 15px;
-  margin-left: -20px;
+  /* margin-left: -20px; */
   font-family: "Century Gothic";
   font-size: 20px;
   text-align: center;

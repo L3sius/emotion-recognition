@@ -23,9 +23,6 @@
 
       <div class="container">
         <div class="functions">
-          <button id="startRecordingbtn" onclick="startRecording()">
-            Start recording
-          </button>
           <br />
           <div id="checkBoxField">
             <input
@@ -36,8 +33,21 @@
             />
             <label for="landMark">Landmark toggle</label>
           </div>
+          <br />
+          <div id="checkBoxField">
+            <input
+              type="checkbox"
+              id="detectionCheckBox"
+              name="detection"
+              checked
+            />
+            <label for="detection">Bounding box toggle</label>
+          </div>
         </div>
         <div class="status">
+          <button id="startRecordingbtn" onclick="startRecording()">
+            Start recording
+          </button>
           <p id="recordingStatus">Recording is currently off.</p>
         </div>
         <div class="tableContent">
